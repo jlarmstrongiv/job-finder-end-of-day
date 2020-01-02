@@ -1,0 +1,26 @@
+type City {
+  id: ID! @id
+  name: String! @unique
+  description: String
+  jobs: [Job!]! @relation(name: "CityToJobs", onDelete: CASCADE)
+}
+
+type Job {
+  id: ID! @id
+  name: String!
+  description: String
+  company: String!
+  salary: Int!
+  city: City! @relation(name: "CityToJobs")
+  applicants: [Applicant!]! @relation(name: "JobToApplicants", onDelete: CASCADE)
+}
+
+type Applicant {
+  id: ID! @id
+  name: String!
+  email: String!
+  website: String
+  phone: String
+  isCriminal: Boolean
+  job: Job! @relation(name: "JobToApplicants")
+}
